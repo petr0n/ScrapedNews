@@ -1,0 +1,32 @@
+{
+  "name": "scrapednews",
+  "version": "1.0.0",
+  "description": "a web app that lets users view and leave comments on the latest news",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/petr0n/ScrapedNews.git"
+  },
+  "keywords": [
+    "news",
+    "express",
+    "node",
+    "handlebars"
+  ],
+  "author": "Peter Abeln",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/petr0n/ScrapedNews/issues"
+  },
+  "homepage": "https://github.com/petr0n/ScrapedNews#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.0",
+    "express-handlebars": "^3.1.0",
+    "mongoose": "^5.5.11"
+  }
+}

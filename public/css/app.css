@@ -1,0 +1,10 @@
+@import url('reset.css');
+
+
+:root {
+  --font-title: '';
+  --font-body: '';
+}
+body {
+  font-size: 62.5%;
+}

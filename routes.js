@@ -10,7 +10,14 @@ module.exports = function(app) {
 
   // html route 
   app.get('/', function(req, res){
-    res.render("index");
+    db.Article.find()
+    .then(function(articles){
+      // res.json(articles);
+      res.render("index", {articles});
+    })
+    .catch(function(err){
+      res.json(err);
+    })
   });
 
   // api route
@@ -26,19 +33,20 @@ module.exports = function(app) {
     $('.headline').each(function(i, element) {
 
         let title = $(this).children('a').text();
-        let description = $(this).next('.blurb').text();
-        if (title && description) {
-          result = {};
-          result.title = title;
-          result.url = $(this).children('a').attr('href');
-          result.description = description;
-          // console.log(result);
+        let blurb = $(this).next('.blurb').text();
+        if (title && blurb) {
+          result = {
+            title: title,
+            url: $(this).children('a').attr('href'),
+            blurb: blurb
+          };
+          console.log(result);
           articles.push(result);
           
           // Create a new Article using the `result` object built from scraping
           db.Article.findOneAndUpdate(
             { title: result.title },
-            { result },
+            { $set: result },
             { upsert: true, new: true }
             ).then(function(dbArticle) {
               console.log(dbArticle);

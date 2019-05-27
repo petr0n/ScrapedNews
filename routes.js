@@ -1,47 +1,55 @@
-let db = require("./models");
+let db = require('./models');
 
-let axios = require("axios");
-let cheerio = require("cheerio");
+let axios = require('axios');
+let cheerio = require('cheerio');
 
 
 // Routes
 // =============================================================
 module.exports = function(app) {
 
-  // A GET route for scraping the echoJS website
-  app.get("/scrape", function(req, res) {
-    // First, we grab the body of the html with axios
-    axios.get("http://www.echojs.com/").then(function(response) {
-      // Then, we load that into cheerio and save it to $ for a shorthand selector
-      var $ = cheerio.load(response.data);
+  // html route 
+  app.get('/', function(req, res){
+    res.render("index");
+  });
 
-      // Now, we grab every h2 within an article tag, and do the following:
-      $("article h2").each(function(i, element) {
-        // Save an empty result object
-        var result = {};
+  // api route
+  app.get('/scrape', function(req, res) {
+    let siteUrl = 'https://www.washingtonpost.com/';
+    axios.get(siteUrl)
+      .then(function(response) {
+    
+    let $ = cheerio.load(response.data);
 
-        // Add the text and href of every link, and save them as properties of the result object
-        result.title = $(this)
-          .children("a")
-          .text();
-        result.link = $(this)
-          .children("a")
-          .attr("href");
+    let articles = [];
+    // strib h3 a.tease-headline
+    $('.headline').each(function(i, element) {
 
-        // Create a new Article using the `result` object built from scraping
-        db.Article.create(result)
-          .then(function(dbArticle) {
-            // View the added result in the console
-            console.log(dbArticle);
-          })
-          .catch(function(err) {
-            // If an error occurred, log it
-            console.log(err);
-          });
+        let title = $(this).children('a').text();
+        let description = $(this).next('.blurb').text();
+        if (title && description) {
+          result = {};
+          result.title = title;
+          result.url = $(this).children('a').attr('href');
+          result.description = description;
+          // console.log(result);
+          articles.push(result);
+          
+          // Create a new Article using the `result` object built from scraping
+          db.Article.findOneAndUpdate(
+            { title: result.title },
+            { result },
+            { upsert: true, new: true }
+            ).then(function(dbArticle) {
+              console.log(dbArticle);
+            })
+            .catch(function(err) {
+              // If an error occurred, log it
+              console.log(err);
+            });
+        }
       });
-
-      // Send a message to the client
-      res.send("Scrape Complete");
+      res.json(JSON.parse(JSON.stringify(articles)));
     });
   });
 

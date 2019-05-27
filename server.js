@@ -1,20 +1,23 @@
-var express = require("express");
-var mongoose = require("mongoose");
-
-var PORT = 3000;
-
-var app = express();
+let express = require("express");
+let mongoose = require("mongoose");
+var bodyParser = require("body-parser");
+let PORT = 3000;
+let app = express();
 
 
 // Parse request body as JSON
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-// Make public a static folder
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.static("public"));
+
+let handlebars = require("express-handlebars");
+app.engine("handlebars", handlebars({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
+
 
 // Connect to the Mongo DB
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scrapednews";
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 require("./routes.js")(app);
 

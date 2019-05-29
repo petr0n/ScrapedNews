@@ -21,3 +21,21 @@ function getNews(e){
   
   })
 }
+
+// hide loader after 3 seconds
+function toggleLoader(){
+  let loader = $('.loader');
+  let articles = $('#articles');
+  if (loader.is(':visible')){
+    loader.fadeOut(300, function(){
+      articles.fadeIn(400);
+    });
+  } else {
+    articles.fadeOut(300, function(){
+      articles.fadeIn(400, function(){
+        setInterval(3000, toggleLoader);
+      });
+    });
+  }
+} 
+toggleLoader();

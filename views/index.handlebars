@@ -1,23 +1,36 @@
 <div class="container mx-auto">
+  <header class=""> 
+    <h1 class="logo">ScrapedNews</h1>
+  </header>
+
   <div class="flex flex-row">
-    <header class="flex-none w-1/5 bg-gray-100 px-4 py-2 m-2"> 
-      <h1 class="logo">ScrapedNews</h1>
+    <div class="col1 flex-none w-1/5 bg-gray-100 px-4 py-2 m-2 ">
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/scrape" class="scrape">Scrape</a></li>
       </ul>
-    </header>
-    <div class="col1 flex-initial w-2/5 bg-gray-100 px-4 py-2 mx-5 my-2">
-      <div id="articles">
-        {{#each articles}}
-          <article class="rounded border-1 border-green-100 bg-white mb-5 p-4">
-            <h3><a href="{{url}}">{{title}}</a></h3>
-            <p>{{blurb}}</p>
-          </article>
-        {{/each}}
+    </div>
+    <div class="col2 flex-initial w-2/5 bg-gray-100 px-4 py-2 mx-5 my-2">
+      <div class="col-title">
+        <h2>Headlines</h2>
+      </div>
+      <div class="article-wrapper">
+        <div class="loader"></div>
+        <div id="articles" style="display: none;">
+          {{#each articles}}
+            <article class="rounded border-1 border-green-100 bg-white mb-5 p-4">
+              <h3><a href="{{url}}">{{title}}</a></h3>
+              <p>{{blurb}}</p>
+            </article>
+          {{/each}}
+        </div>
       </div>
     </div>
-    <div class="col2 flex-initial w-2/5 bg-gray-100 px-4 py-2 mx-5 my-2">col 2</div>
+    <div class="col3 flex-initial w-2/5 bg-gray-100 px-4 py-2 mx-5 my-2">
+      <div class="col-title">
+        <h2>Notes</h2>
+      </div>
+    </div>
   </div>
 </div>
 

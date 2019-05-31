@@ -61,4 +61,38 @@ module.exports = function(app) {
     });
   });
 
+
+  app.get('/article/:id', function(req, res){
+    db.Article.findOne({ _id: req.params.id})
+      .populate('note')
+      .then(function(article){
+        res.json(JSON.parse(JSON.stringify(article)));
+      });
+  });
+
+
+  app.post('/saveNote', function (req, res){
+    console.log('req.body.id', req.body.id);
+    console.log('req.body.title', req.body.title);
+    console.log('req.body.body', req.body.body);
+    db.Note.create(req.body)
+      .then(function(dbNote) {
+        return db.Article.findOneAndUpdate(
+          { 
+            _id: req.body.id 
+          }, 
+          { 
+            $push: { 
+              note: dbNote._id
+            } 
+          }, { new: true });
+      })
+      .then(function(article) {
+        res.json(article);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
+  });
+
 }

@@ -37,15 +37,17 @@ header h1 {
   width: 100%;
 }
 article {
-  
+  border: 1px solid white;
+  cursor: pointer;
 }
 article h3 a {
   color: green;
   font-family: var(--font-title);
   font-size: 1.3em;
 }
-article h3 a:hover {
-  color: greenyellow;
+
+.add-note {
+  position: relative;
 }
 
 

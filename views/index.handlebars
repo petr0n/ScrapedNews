@@ -18,8 +18,8 @@
         <div class="loader"></div>
         <div id="articles" style="display: none;">
           {{#each articles}}
-            <article class="rounded border-1 border-green-100 bg-white mb-5 p-4">
-              <h3><a href="{{url}}">{{title}}</a></h3>
+            <article class="rounded border-1 border-indigo-100 hover:border-indigo-300 focus:border-green-500 bg-white mb-5 p-4" data-articleId="{{_id}}">
+              <h3><a href="{{url}}" class="text-indigo-500 hover:text-indigo-800">{{title}}</a></h3>
               <p>{{blurb}}</p>
             </article>
           {{/each}}
@@ -29,6 +29,17 @@
     <div class="col3 flex-initial w-2/5 bg-gray-100 px-4 py-2 mx-5 my-2">
       <div class="col-title">
         <h2>Notes</h2>
+      </div>
+      <div class="article-notes">
+
+      </div>
+      <div class="add-note" style="display:none;">
+        <div class="picked-article"></div>
+        <div class="note-error"></div>
+        <input type="text" id="noteTitle" style="width: 100%;" class="shadow outline-none rounded border-2 border-gray-400 focus:border-orange-500 p-2 mb-3" placeholder="Title">
+        <textarea name="note" id="noteBody" rows="3" style="width: 100%;" class="shadow outline-none rounded border-2 border-gray-400 focus:border-orange-500 p-2 mb-2" placeholder="Note"></textarea>
+        <input type="hidden" id="articleId">
+        <input type="submit" id="submit-note" value="Save Note" class="outline-none bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border-2 border-gray-400 hover:border-orange-500 rounded shadow">
       </div>
     </div>
   </div>

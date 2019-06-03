@@ -5,10 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>ScrapedNews</title>
+  <script src="https://kit.fontawesome.com/9b066dc5e2.js"></script>
   <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
+  <header class="header"> 
+    <div class="container mx-auto">
+      <div class="flex flex-row items-center justify-between">
+        <h1 class="logo mx-5 text-white">ScrapedNews</h1>
+          <a href="/scrape" class="scrape mx-5 flex rounded-full bg-green-600 uppercase px-2 py-1 text-white font-bold mr-3">Scrape&nbsp;&nbsp;<i class="fas fa-sync-alt"></i></a>
+        {{!-- <div class="nav">
+        </div> --}}
+      </div>
+    </div>
+  </header>
   {{{ body }}}
   
   

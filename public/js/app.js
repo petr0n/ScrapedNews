@@ -52,7 +52,6 @@ function getArticleNote(event) {
   let article = $(this);
   article.addClass('bg-gray-300');
   let id = article.attr('data-articleId');
-  console.log('id', id);
   if (id) {
     $.ajax({
       url: '/article/' + id,
@@ -64,6 +63,21 @@ function getArticleNote(event) {
       $('.add-note').fadeIn(400).animate({'top': (article.offset().top - 100) + 'px'},'slow', function(){
           $('#note').focus();
       });
+      let notesEl = $('.article-notes');
+      console.log('res.notes', res.notes);
+      if (res.notes.length) {
+        let n = res.notes;
+        n.forEach((note) => {
+          let noteEl = `<div class="note p-3 mb-3 border-solid border-b-2 border-gray-300">
+          <h4 class="text-lg font-bold mb-1">${note.title}</h4>
+          <p>${note.body}</p>
+          <hr></div>`;
+          notesEl.append(noteEl);
+        });
+      } else {
+        notesEl.html('');
+        console.log('notesEl', notesEl);
+      }
     });
   }
 }

@@ -1,36 +1,36 @@
-<div class="container mx-auto">
-  <header class=""> 
-    <h1 class="logo">ScrapedNews</h1>
-  </header>
 
+<div class="container mx-auto">
   <div class="flex flex-row">
-    <div class="col1 flex-none w-1/5 bg-gray-100 px-4 py-2 m-2 ">
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/scrape" class="scrape">Scrape</a></li>
-      </ul>
-    </div>
-    <div class="col2 flex-initial w-2/5 bg-gray-100 px-4 py-2 mx-5 my-2">
-      <div class="col-title">
-        <h2>Headlines</h2>
-      </div>
+    <section class="col2 flex-initial w-3/5 bg-gray-100 px-4 py-2 mx-5 my-2">
+      <header class="col-title mb-3">
+        <h2 class="text-sm uppercase"><i class="fas fa-newspaper text-blue-300"></i> Headlines</h2>
+      </header>
+      <div class="loader"></div>
       <div class="article-wrapper">
-        <div class="loader"></div>
         <div id="articles" style="display: none;">
           {{#each articles}}
-            <article class="rounded border-1 border-indigo-100 hover:border-indigo-300 focus:border-green-500 bg-white mb-5 p-4" data-articleId="{{_id}}">
+            <article class="rounded border-1 border-indigo-100 hover:border-indigo-300 focus:border-green-500 bg-white mb-5 p-4 pb-8" data-articleId="{{_id}}">
               <h3><a href="{{url}}" class="text-indigo-500 hover:text-indigo-800">{{title}}</a></h3>
-              <p>{{blurb}}</p>
+              <p class="pb-3">{{blurb}}</p>
+              {{#if notes.length}}
+                <span class="flex float-right w-15 text-white rounded-full bg-red-500 uppercase px-2 py-1 text-xs font-bold">
+                  Notes: {{notes.length}}
+                </span>
+              {{else}}
+                <span class="flex float-right rounded-full w-11 text-white bg-green-500 uppercase px-2 py-1 text-xs font-bold">
+                  <i class="fas fa-plus"></i>&nbsp;&nbsp;Note
+                </span>
+              {{/if}}
             </article>
           {{/each}}
         </div>
       </div>
-    </div>
-    <div class="col3 flex-initial w-2/5 bg-gray-100 px-4 py-2 mx-5 my-2">
-      <div class="col-title">
-        <h2>Notes</h2>
-      </div>
-      <div class="article-notes">
+    </section>
+    <section class="col3 flex-initial w-2/5 bg-gray-100 px-4 py-2 mx-5 my-2">
+      <header class="col-title mb-3">
+        <h2 class="text-sm uppercase"><i class="far fa-sticky-note text-blue-300"></i> Notes</h2>
+      </header>
+      <div class="article-notes my-3">
 
       </div>
       <div class="add-note" style="display:none;">
@@ -41,8 +41,9 @@
         <input type="hidden" id="articleId">
         <input type="submit" id="submit-note" value="Save Note" class="outline-none bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border-2 border-gray-400 hover:border-orange-500 rounded shadow">
       </div>
-    </div>
+    </section>
   </div>
+
 </div>
 
 <script id="article-template" type="text/x-handlebars-template">

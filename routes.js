@@ -11,8 +11,9 @@ module.exports = function(app) {
   // html route 
   app.get('/', function(req, res){
     db.Article.find()
+    .populate('notes')
     .then(function(articles){
-      // res.json(articles);
+      // console.log(articles);
       res.render("index", {articles});
     })
     .catch(function(err){
@@ -40,7 +41,7 @@ module.exports = function(app) {
             url: $(this).children('a').attr('href'),
             blurb: blurb
           };
-          console.log(result);
+          console.log('result', result);
           articles.push(result);
           
           // Create a new Article using the `result` object built from scraping
@@ -49,7 +50,7 @@ module.exports = function(app) {
             { $set: result },
             { upsert: true, new: true }
             ).then(function(dbArticle) {
-              console.log(dbArticle);
+              console.log('dbArticle', dbArticle);
             })
             .catch(function(err) {
               // If an error occurred, log it
@@ -63,29 +64,30 @@ module.exports = function(app) {
 
 
   app.get('/article/:id', function(req, res){
-    db.Article.findOne({ _id: req.params.id})
-      .populate('note')
-      .then(function(article){
-        res.json(JSON.parse(JSON.stringify(article)));
+    db.Article.findOne({ _id: req.params.id })
+      .populate('notes')
+      .exec((err, notes) => {
+        // console.log('notes', notes);
+        res.json(JSON.parse(JSON.stringify(notes)));
       });
   });
 
 
   app.post('/saveNote', function (req, res){
-    console.log('req.body.id', req.body.id);
-    console.log('req.body.title', req.body.title);
-    console.log('req.body.body', req.body.body);
+    // console.log('req.body.id', req.body.id);
+    // console.log('req.body.title', req.body.title);
+    // console.log('req.body.body', req.body.body);
     db.Note.create(req.body)
       .then(function(dbNote) {
+        // console.log('dbNote', dbNote)
         return db.Article.findOneAndUpdate(
           { 
-            _id: req.body.id 
           }, 
           { 
             $push: { 
-              note: dbNote._id
+              notes: dbNote._id
             } 
-          }, { new: true });
+          }, { upsert: true, new: true, setDefaultsOnInsert: true });
       })
       .then(function(article) {
         res.json(article);

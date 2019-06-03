@@ -60,7 +60,7 @@ function getArticleNote(event) {
       // console.log(res);
       $('.picked-article').html('<h3>' + res.title + '</h3>');
       $('#articleId').val(id);
-      $('.add-note').fadeIn(400).animate({'top': (article.offset().top - 100) + 'px'},'slow', function(){
+      $('.add-note').fadeIn(400).animate({'top': (article.offset().top - 180) + 'px'},'slow', function(){
           $('#note').focus();
       });
       let notesEl = $('.article-notes');
@@ -76,7 +76,7 @@ function getArticleNote(event) {
         });
       } else {
         notesEl.html('');
-        console.log('notesEl', notesEl);
+        // console.log('notesEl', notesEl);
       }
     });
   }

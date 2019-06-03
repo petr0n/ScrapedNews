@@ -27,5 +27,3 @@ require("./routes.js")(app);
 app.listen(PORT, function() {
   console.log("App running on port http://localhost:" + PORT);
 });
-
-mongodb://<dbuser>:<dbpassword>@ds261486.mlab.com:61486/heroku_hwl6l1r4

@@ -1,7 +1,7 @@
 let express = require("express");
 let mongoose = require("mongoose");
 var bodyParser = require("body-parser");
-let PORT = 3000;
+let PORT = process.env.PORT || 3000;
 let app = express();
 
 
@@ -19,6 +19,7 @@ app.set("view engine", "handlebars");
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/scrapednews";
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
+
 require("./routes.js")(app);
 
 
@@ -26,3 +27,5 @@ require("./routes.js")(app);
 app.listen(PORT, function() {
   console.log("App running on port http://localhost:" + PORT);
 });
+
+mongodb://<dbuser>:<dbpassword>@ds261486.mlab.com:61486/heroku_hwl6l1r4

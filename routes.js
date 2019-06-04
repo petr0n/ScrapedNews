@@ -80,9 +80,7 @@ module.exports = function(app) {
     db.Note.create(req.body)
       .then(function(dbNote) {
         // console.log('dbNote', dbNote)
-        return db.Article.findOneAndUpdate(
-          { 
-          }, 
+        return db.Article.findOneAndUpdate( {}, 
           { 
             $push: { 
               notes: dbNote._id

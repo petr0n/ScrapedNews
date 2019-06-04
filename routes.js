@@ -41,7 +41,7 @@ module.exports = function(app) {
             url: $(this).children('a').attr('href'),
             blurb: blurb
           };
-          console.log('result', result);
+          // console.log('result', result);
           articles.push(result);
           
           // Create a new Article using the `result` object built from scraping
@@ -50,7 +50,7 @@ module.exports = function(app) {
             { $set: result },
             { upsert: true, new: true }
             ).then(function(dbArticle) {
-              console.log('dbArticle', dbArticle);
+              // console.log('dbArticle', dbArticle);
             })
             .catch(function(err) {
               // If an error occurred, log it

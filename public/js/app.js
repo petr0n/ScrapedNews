@@ -64,7 +64,7 @@ function getArticleNote(event) {
           $('#note').focus();
       });
       let notesEl = $('.article-notes');
-      console.log('res.notes', res.notes);
+      // console.log('res.notes', res.notes);
       if (res.notes.length) {
         let n = res.notes;
         n.forEach((note) => {
@@ -90,7 +90,7 @@ function saveNote(e){
   let noteTitleEl = $('#noteTitle');
   let noteBodyEl = $('#noteBody');
   let articleIdEl = $('#articleId');
-  console.log('articleIdEl', articleIdEl.val());
+  // console.log('articleIdEl', articleIdEl.val());
   validationMess.html('');
   if (noteTitleEl.val()) {
     $.ajax({
@@ -102,7 +102,7 @@ function saveNote(e){
         id: articleIdEl.val()
       }
     }).done(function(){
-      console.log('note sent');
+      // console.log('note sent');
       noteTitleEl.val('');
       noteBodyEl.val('');
       articleIdEl.val('');

@@ -80,7 +80,10 @@ module.exports = function(app) {
     db.Note.create(req.body)
       .then(function(dbNote) {
         // console.log('dbNote', dbNote)
-        return db.Article.findOneAndUpdate( {}, 
+        return db.Article.findOneAndUpdate(
+          { 
+            _id: req.body.id
+          }, 
           { 
             $push: { 
               notes: dbNote._id
@@ -93,6 +96,19 @@ module.exports = function(app) {
       .catch(function(err) {
         res.json(err);
       });
+  });
+
+
+  app.get('/getNews', function(req, res){
+    db.Article.find()
+    .populate('notes')
+    .then(function(articles){
+      // console.log(articles);
+      res.json(JSON.parse(JSON.stringify(articles)));
+    })
+    .catch(function(err){
+      res.json(err);
+    })
   });
 
 }
